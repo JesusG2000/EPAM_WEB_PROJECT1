@@ -1,4 +1,4 @@
-package com.epam.examples.bean;
+package com.epam.examples.entity;
 
 import java.util.Objects;
 

@@ -14,23 +14,23 @@ public final class Controller {
     public String executeTask(String request) {
         try {
             Command executionCommand = commandProvider.getCommand(request);
-            List<String> lines = takeData(commandProvider.getParam(request));
+            List<?> lines = takeData(executionCommand.getInputType());
             return takeResult(lines, executionCommand);
         } catch (DaoException e) {
             return e.getMessage();
         }
     }
 
-    private String takeResult(List<String> lines, Command executionCommand) {
+    private String takeResult(List<?> dataList, Command executionCommand) {
         StringBuilder result = new StringBuilder();
-        for (String line : lines) {
-            result.append("(").append(executionCommand.execute(line)).append(") ");
+        for (Object data : dataList) {
+            result.append("(").append(executionCommand.execute(data)).append(") ");
         }
         return result.toString();
     }
 
-    private List<String> takeData(Pattern pattern) throws DaoException {
+    private <T> List<T> takeData(Class<T> clazz) throws DaoException {
         FileDataAction fileDataAction = DaoFactory.getFileDataAction();
-        return fileDataAction.pickLinesByRule(fileDataAction.takeAllLines("data\\information"), pattern);
+        return (List<T>) fileDataAction.pickLinesByRule(fileDataAction.takeAllLines("data\\information"), pattern);
     }
 }
