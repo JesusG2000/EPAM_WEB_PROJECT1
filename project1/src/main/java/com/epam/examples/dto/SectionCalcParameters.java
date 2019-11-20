@@ -4,6 +4,7 @@ import com.epam.examples.entity.Dot;
 import com.epam.examples.entity.Glob;
 
 public class SectionCalcParameters {
+
   private Glob glob;
   private String axis;
   private Dot dot;
@@ -14,6 +15,7 @@ public class SectionCalcParameters {
     this.axis = axis;
     this.dot = dot;
   }
+
 
   public Dot getDot() {
     return dot;

@@ -16,14 +16,15 @@ public final class Controller {
 
     public String executeTask(String request) {
         try {
+
             Command<?> executionCommand = commandProvider.getCommand(request);
+
             List<?> lines = takeData(executionCommand.getInputType());
             return takeResult(lines, executionCommand);
         } catch (ProviderException | ParserException e) {
             return e.getMessage();
         }
     }
-
 
     private String takeResult(List<?> dataList, Command executionCommand) {
         StringBuilder result = new StringBuilder();
@@ -33,6 +34,7 @@ public final class Controller {
         return result.toString();
     }
 
+
     private <T> List<T> takeData(Class<T> clazz) throws ProviderException, ParserException {
         DataParser parser = DataParserFactory.getDataParser();
         if (clazz == Glob.class) {
@@ -41,6 +43,7 @@ public final class Controller {
         } else {
             return (List<T>) parser.getSectionParams();
         }
+
 
     }
 }
