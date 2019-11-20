@@ -1,7 +1,7 @@
 package com.epam.examples.math_operation;
 
-import com.epam.examples.bean.Dot;
-import com.epam.examples.bean.Glob;
+import com.epam.examples.entity.Dot;
+import com.epam.examples.entity.Glob;
 
 public interface Operation {
     double takeSurfaceArea(Glob glob) throws MathException;

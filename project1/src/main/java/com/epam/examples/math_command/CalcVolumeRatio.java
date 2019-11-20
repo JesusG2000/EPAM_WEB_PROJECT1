@@ -1,16 +1,19 @@
 package com.epam.examples.math_command;
 
-import com.epam.examples.bean.Dot;
-import com.epam.examples.bean.Glob;
+import com.epam.examples.dto.SectionCalcParameters;
+import com.epam.examples.entity.Dot;
+import com.epam.examples.entity.Glob;
 import com.epam.examples.controller.Command;
 import com.epam.examples.service.CalcService;
 import com.epam.examples.service.ServiceException;
 import com.epam.examples.service.ServiceFactory;
 
-public class CalcVolumeRatio implements Command {
+public class CalcVolumeRatio implements Command<SectionCalcParameters> {
+
+
     @Override
-    public String execute(String data) {
-        String []info= data.split(" ");
+    public String execute(SectionCalcParameters data) {
+/*        String []info= data.split(" ");
         double x=Double.parseDouble(info[0]);
         double y=Double.parseDouble(info[1]);
         double z=Double.parseDouble(info[2]);
@@ -18,12 +21,17 @@ public class CalcVolumeRatio implements Command {
         String axis=info[4];
         double x1=Double.parseDouble(info[5]);
         double y1=Double.parseDouble(info[6]);
-        double z1=Double.parseDouble(info[7]);
+        double z1=Double.parseDouble(info[7]);*/
         try{
             CalcService calcService = ServiceFactory.getCalcService();
-            return calcService.takeVolumeRatio(new Glob(new Dot(x,y,z),radius),axis,new Dot(x1,y1,z1))+"";
+            return String.valueOf(calcService.takeVolumeRatio(data.getGlob(), data.getAxis(), data.getDot()));
         }catch (ServiceException e) {
             return e.getMessage();
         }
+    }
+
+    @Override
+    public Class<SectionCalcParameters> getInputType() {
+        return SectionCalcParameters.class;
     }
 }
