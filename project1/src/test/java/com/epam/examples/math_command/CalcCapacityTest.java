@@ -1,34 +1,32 @@
 package com.epam.examples.math_command;
 
-import com.epam.examples.dao.DaoException;
-import com.epam.examples.dao.DaoFactory;
-import com.epam.examples.dao.FileDataAction;
-import com.epam.examples.dao.FileParser;
+import com.epam.examples.entity.Glob;
+import com.epam.examples.util.parser.DataParser;
+import com.epam.examples.util.parser.DataParserFactory;
+import com.epam.examples.util.parser.ParserException;
+import com.epam.examples.util.provider.ProviderException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.util.List;
 
 
 public class CalcCapacityTest {
     private CalcCapacity calcCapacity;
-    private FileDataAction factory;
-    private List<String> lines;
-
-
+    private List<Glob> lines;
 
 
     @Before
-    public void initCalcCapacity() throws DaoException {
-        factory = DaoFactory.getFileDataAction();
-        lines = factory.pickLinesByRule(factory.takeAllLines("src\\test\\resources\\information"), FileParser.FOUR_PARAMS);
+    public void initAllowableGlob() throws ProviderException, ParserException {
+        DataParser parser = DataParserFactory.getDataParser();
+        lines = parser.getGlobes();
         calcCapacity = new CalcCapacity();
     }
 
     @After
     public void clearCalcCapacity() {
-        factory = null;
         calcCapacity = null;
         lines=null;
     }

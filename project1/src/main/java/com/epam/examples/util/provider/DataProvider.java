@@ -1,6 +1,14 @@
 package com.epam.examples.util.provider;
 
-public interface DataProvider<R,T> {
 
-  R getData(T dataHolder);
+
+
+import java.util.List;
+import java.util.regex.Pattern;
+
+public interface DataProvider{
+
+  List<String> getData(String dataHolder) throws ProviderException;
+  List<String> getLines(List<String> lines, Pattern pattern) throws ProviderException;
+
 }

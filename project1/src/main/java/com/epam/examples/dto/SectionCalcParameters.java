@@ -5,9 +5,17 @@ import com.epam.examples.entity.Glob;
 
 public class SectionCalcParameters {
 
-  private Dot dot;
-  private String axis;
   private Glob glob;
+  private String axis;
+  private Dot dot;
+
+
+  public SectionCalcParameters(Glob glob, String axis, Dot dot) {
+    this.glob = glob;
+    this.axis = axis;
+    this.dot = dot;
+  }
+
 
   public Dot getDot() {
     return dot;
