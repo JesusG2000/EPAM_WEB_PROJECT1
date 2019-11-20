@@ -1,7 +1,7 @@
 package com.epam.examples.controller;
 
 
-import com.epam.examples.dao.FileParser;
+
 import com.epam.examples.math_command.*;
 
 import java.util.HashMap;
@@ -21,12 +21,12 @@ import java.util.regex.Pattern;
         repositoryOperation.put(CommandName.CALC_VOLUME_RATIO, new CalcVolumeRatio());
         repositoryOperation.put(CommandName.IS_TOUCH_SOME_AXIS, new IsTouchSomeAxis());
         repositoryOperation.put(CommandName.WRONG_REQUEST, new WrongRequest());
-
-        repositoryParam.put(CommandName.ALLOWABLE_GLOB, FileParser.FOUR_PARAMS);
-        repositoryParam.put(CommandName.CALC_CAPACITY, FileParser.FOUR_PARAMS);
-        repositoryParam.put(CommandName.CALC_SURFACE_AREA, FileParser.FOUR_PARAMS);
-        repositoryParam.put(CommandName.CALC_VOLUME_RATIO, FileParser.EIGHT_PARAMS);
-        repositoryParam.put(CommandName.IS_TOUCH_SOME_AXIS, FileParser.FOUR_PARAMS);
+//
+//        repositoryParam.put(CommandName.ALLOWABLE_GLOB, FileParser.FOUR_PARAMS);
+//        repositoryParam.put(CommandName.CALC_CAPACITY, FileParser.FOUR_PARAMS);
+//        repositoryParam.put(CommandName.CALC_SURFACE_AREA, FileParser.FOUR_PARAMS);
+//        repositoryParam.put(CommandName.CALC_VOLUME_RATIO, FileParser.EIGHT_PARAMS);
+//        repositoryParam.put(CommandName.IS_TOUCH_SOME_AXIS, FileParser.FOUR_PARAMS);
 
     }
 
@@ -43,9 +43,9 @@ import java.util.regex.Pattern;
         return command;
     }
 
-    Pattern getParam(String name) {
-        CommandName commandName = CommandName.valueOf(name.toUpperCase());
-        repositoryParam.get(commandName);
-        return  repositoryParam.get(commandName);
-    }
+//    Pattern getParam(String name) {
+//        CommandName commandName = CommandName.valueOf(name.toUpperCase());
+//        repositoryParam.get(commandName);
+//        return  repositoryParam.get(commandName);
+//    }
 }

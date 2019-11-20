@@ -1,37 +1,33 @@
 package com.epam.examples.math_command;
 
-import com.epam.examples.dao.DaoException;
-import com.epam.examples.dao.DaoFactory;
-import com.epam.examples.dao.FileDataAction;
-import com.epam.examples.dao.FileParser;
+import com.epam.examples.entity.Glob;
+import com.epam.examples.util.parser.DataParser;
+import com.epam.examples.util.parser.DataParserFactory;
+import com.epam.examples.util.parser.ParserException;
+import com.epam.examples.util.provider.ProviderException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
-import java.util.Arrays;
 import java.util.List;
 
 
 public class CalcSurfaceAreaTest {
 
     private CalcSurfaceArea calcSurfaceArea;
-    private FileDataAction factory;
-    private List<String> lines;
+    private List<Glob> lines;
 
 
     @Before
-    public void initAllowableGlob() throws DaoException {
+    public void initAllowableGlob() throws ProviderException, ParserException {
+        DataParser parser = DataParserFactory.getDataParser();
+        lines = parser.getGlobes();
         calcSurfaceArea = new CalcSurfaceArea();
-        factory = DaoFactory.getFileDataAction();
-        lines = factory.pickLinesByRule(factory.takeAllLines("src\\test\\resources\\information"), FileParser.FOUR_PARAMS);
     }
 
     @After
     public void clearAllowableGlob() {
-        factory = null;
         calcSurfaceArea = null;
         lines = null;
     }

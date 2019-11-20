@@ -1,7 +1,7 @@
 package com.epam.examples.service.impl;
 
-import com.epam.examples.bean.Dot;
-import com.epam.examples.bean.Glob;
+import com.epam.examples.entity.Dot;
+import com.epam.examples.entity.Glob;
 import com.epam.examples.math_operation.MathException;
 import com.epam.examples.math_operation.MathFactory;
 import com.epam.examples.math_operation.Operation;
