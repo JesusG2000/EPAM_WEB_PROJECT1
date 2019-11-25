@@ -33,15 +33,5 @@ public class FileDataProvider implements DataProvider {
         return lines;
     }
 
-    @Override
-    public List<String> getLines(List<String> lines , Pattern pattern) throws ProviderException {
-        List<String> formatList =new ArrayList<>();
-        for (String l : lines) {
-            Matcher matcher = pattern.matcher(l);
-            while (matcher.find()) {
-                formatList.add(l);
-            }
-        }
-        return formatList;
-    }
+
 }

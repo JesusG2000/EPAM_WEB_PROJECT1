@@ -1,30 +1,34 @@
 package com.epam.examples.util.parser.impl;
 
 
-import com.epam.examples.dto.SectionCalcParameters;
-import com.epam.examples.entity.Dot;
-import com.epam.examples.entity.Glob;
+import com.epam.examples.bean.dto.SectionCalcParameters;
+import com.epam.examples.bean.Dot;
+import com.epam.examples.bean.Glob;
 import com.epam.examples.util.parser.DataParser;
 import com.epam.examples.util.parser.ParserException;
 import com.epam.examples.util.provider.DataProvider;
-import com.epam.examples.util.provider.DataProviderFactory;
 import com.epam.examples.util.provider.ProviderException;
 
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FileDataParser implements DataParser {
     private static final Pattern GLOB_PARAMS = Pattern.compile("((-|)[0-9]+\\.[0-9]+\\s){3}[0-9]+\\.[0-9]+$");
-    // private static final Pattern DOT_PARAMS = Pattern.compile("((-|)[0-9]+\\.[0-9]+\\s){2}[0-9]+\\.[0-9]+$");
     private static final Pattern SECTION_PARAMS = Pattern.compile("((-|)[0-9]+\\.[0-9]+\\s){3}[0-9]+\\.[0-9]+\\sO([XYZ])\\s((-|)[0-9]+\\.[0-9]+\\s){2}[0-9]+\\.[0-9]+$");
+    private String wayToFile;
+    private DataProvider provider;
+
+    public FileDataParser(String wayToFile,DataProvider provider) {
+        this.wayToFile=wayToFile;
+        this.provider=provider;
+    }
 
     @Override
     public List<SectionCalcParameters> getSectionParams() throws ParserException, ProviderException {
-
-        DataProvider factory = DataProviderFactory.getProvider();
-        List<String> lines = factory.getLines(factory.getData("data\\information"), SECTION_PARAMS);
+        List<String> lines = getLines(provider.getData(wayToFile), SECTION_PARAMS);
         List<SectionCalcParameters> parameters = new ArrayList<>();
         try {
             for (String line : lines) {
@@ -32,7 +36,7 @@ public class FileDataParser implements DataParser {
                 double x = Double.parseDouble(divider[0]);
                 double y = Double.parseDouble(divider[1]);
                 double z = Double.parseDouble(divider[2]);
-                double radius = Double.parseDouble(divider[3]);//NumberFormatException
+                double radius = Double.parseDouble(divider[3]);
                 String axis = divider[4];
                 double x1 = Double.parseDouble(divider[5]);
                 double y1 = Double.parseDouble(divider[6]);
@@ -50,8 +54,8 @@ public class FileDataParser implements DataParser {
     @Override
     public List<Glob> getGlobes() throws ParserException, ProviderException {
 
-        DataProvider factory = DataProviderFactory.getProvider();
-        List<String> lines = factory.getLines(factory.getData("data\\information"), GLOB_PARAMS);
+
+        List<String> lines = getLines(provider.getData(wayToFile), GLOB_PARAMS);
         List<Glob> globs = new ArrayList<>();
         try {
             for (String line : lines) {
@@ -66,5 +70,16 @@ public class FileDataParser implements DataParser {
             throw new ParserException(e);
         }
         return globs;
+    }
+
+    private List<String> getLines(List<String> lines , Pattern pattern) throws ProviderException {
+        List<String> formatList =new ArrayList<>();
+        for (String l : lines) {
+            Matcher matcher = pattern.matcher(l);
+            while (matcher.find()) {
+                formatList.add(l);
+            }
+        }
+        return formatList;
     }
 }

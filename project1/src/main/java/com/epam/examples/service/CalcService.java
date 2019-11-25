@@ -1,7 +1,7 @@
 package com.epam.examples.service;
 
-import com.epam.examples.entity.Dot;
-import com.epam.examples.entity.Glob;
+import com.epam.examples.bean.Dot;
+import com.epam.examples.bean.Glob;
 
 public interface CalcService {
 
