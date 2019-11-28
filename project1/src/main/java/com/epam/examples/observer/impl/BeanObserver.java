@@ -1,6 +1,6 @@
 package com.epam.examples.observer.impl;
 
-import com.epam.examples.bean.dto.SectionCalcParameters;
+import com.epam.examples.bean.dto.impl.SectionCalcParameters;
 import com.epam.examples.observer.Observer;
 import com.epam.examples.service.CalcService;
 import com.epam.examples.service.ServiceException;

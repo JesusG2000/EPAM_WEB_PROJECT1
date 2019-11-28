@@ -1,11 +1,26 @@
 package com.epam.examples.dao;
 
 import com.epam.examples.bean.Glob;
-import com.epam.examples.bean.dto.SectionCalcParameters;
 
 import java.util.List;
 
-public interface FindData {
+public interface GlobDao {
+    List<Glob> getGlobs();
+
+    void addGlob(Glob glob) throws DaoException;
+
+    void removeGlob(int index) throws DaoException;
+
+    void changeGlob(int index, Glob glob) throws DaoException;
+
+    void sortGlobByX();
+
+    void sortGlobByY();
+
+    void sortGlobByZ();
+
+    void sortGLobByRadius();
+
     List<Glob> findGlobsWithRadius(double rad);
 
     List<Glob> findGlobWithCapacity(double begin, double end);
@@ -17,10 +32,4 @@ public interface FindData {
     List<Glob> findGlobWithSurfaceArea(double begin, double end);
 
     List<Glob> findGlobWithSurfaceArea(double begin);
-
-    List<SectionCalcParameters> findSectionCalcParametersWithAxis(String axis);
-
-    List<SectionCalcParameters> findSectionCalcParametersWithVolumeRatio(double begin, double end);
-
-
 }

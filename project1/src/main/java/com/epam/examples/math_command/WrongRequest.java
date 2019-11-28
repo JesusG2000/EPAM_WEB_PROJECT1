@@ -1,4 +1,4 @@
-package com.epam.examples.math.command;
+package com.epam.examples.math_command;
 
 import com.epam.examples.controller.Command;
 

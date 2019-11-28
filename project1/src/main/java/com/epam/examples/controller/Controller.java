@@ -1,19 +1,18 @@
 package com.epam.examples.controller;
 
 import com.epam.examples.bean.Glob;
-import com.epam.examples.dao.ChangeData;
 import com.epam.examples.dao.DaoException;
 import com.epam.examples.dao.DaoFactory;
-import com.epam.examples.dao.impl.Action;
-import com.epam.examples.util.log.LogProvider;
+import com.epam.examples.dao.GlobDao;
+import com.epam.examples.dao.SectionCalcParametersDao;
+import org.apache.log4j.Logger;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public final class Controller {
-    private final CommandProvider commandProvider=new CommandProvider();
-    private static Logger log =LogProvider.getLOGGER(Controller.class);
+    private static Logger log = Logger.getLogger(Controller.class);
+    private final CommandProvider commandProvider = new CommandProvider();
 
     public String executeTask(String request) {
         try {
@@ -22,7 +21,7 @@ public final class Controller {
 
             return takeResult(lines, executionCommand);
         } catch (DaoException e) {
-            log.log(Level.WARNING,"Dao exception",e);
+            log.error("Dao exception", e);
             return e.getMessage();
         }
     }
@@ -38,12 +37,14 @@ public final class Controller {
     }
 
     private <T> List<?> takeData(Class<T> clazz) throws DaoException {
-        ChangeData action = DaoFactory.getChangeData();
+
         log.info("take data");
         if (clazz == Glob.class) {
-            return  action.getGlobs();
+            GlobDao factory = DaoFactory.getGlobDao();
+            return factory.getGlobs();
         } else {
-            return  action.getSectionCalcParameters();
+            SectionCalcParametersDao factory = DaoFactory.getSectionCalcParametersDao();
+            return factory.getSectionCalcParameters();
         }
     }
 }

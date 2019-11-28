@@ -3,7 +3,7 @@ package com.epam.examples.bean;
 import java.util.Objects;
 
 
-public class Glob  {
+public class Glob {
     private Dot dot;
     private double radius;
 

@@ -1,6 +1,6 @@
-package com.epam.examples.math.command;
+package com.epam.examples.math_command;
 
-import com.epam.examples.bean.dto.SectionCalcParameters;
+import com.epam.examples.bean.dto.impl.SectionCalcParameters;
 import com.epam.examples.controller.Command;
 import com.epam.examples.service.CalcService;
 import com.epam.examples.service.ServiceException;
@@ -12,10 +12,10 @@ public class CalcVolumeRatio implements Command<SectionCalcParameters> {
     @Override
     public String execute(SectionCalcParameters data) {
 
-        try{
+        try {
             CalcService calcService = ServiceFactory.getCalcService();
             return String.valueOf(calcService.takeVolumeRatio(data.getGlob(), data.getAxis(), data.getDot()));
-        }catch (ServiceException e) {
+        } catch (ServiceException e) {
             return e.getMessage();
         }
     }

@@ -1,4 +1,4 @@
-package com.epam.examples.math.command;
+package com.epam.examples.math_command;
 
 import com.epam.examples.bean.Glob;
 import com.epam.examples.util.parser.DataParser;
@@ -15,9 +15,8 @@ import org.junit.Test;
 import java.util.List;
 
 
-public class CalcSurfaceAreaTest {
-
-    private CalcSurfaceArea calcSurfaceArea;
+public class CalcCapacityTest {
+    private CalcCapacity calcCapacity;
     private List<Glob> lines;
     private DataProvider dataProvider;
     private DataParser parser;
@@ -25,31 +24,33 @@ public class CalcSurfaceAreaTest {
 
     @Before
     public void initAllowableGlob() throws ProviderException, ParserException {
-        dataProvider = new FileDataProvider();
-        parser = new FileDataParser("src\\test\\resources\\information", dataProvider);
+
+        dataProvider = new FileDataProvider("src\\test\\resources\\information");
+        parser = new FileDataParser(dataProvider);
         lines = parser.getGlobes();
-        calcSurfaceArea = new CalcSurfaceArea();
+        calcCapacity = new CalcCapacity();
     }
 
     @After
-    public void clearAllowableGlob() {
-        calcSurfaceArea = null;
+    public void clearCalcCapacity() {
+        calcCapacity = null;
         lines = null;
         parser = null;
         dataProvider = null;
     }
 
+
     @Test(expected = IndexOutOfBoundsException.class)
     public void checkOnException() {
-        double expected = 118.4;
-        String actual = calcSurfaceArea.execute(lines.get(3));
+        double expected = 113.09D;
+        String actual = calcCapacity.execute(lines.get(5));
         Assert.assertEquals(expected, Double.parseDouble(actual), 0.1);
     }
 
-    @Test
+    @Test()
     public void checkOnResult() {
-        double expected = 118.4;
-        String actual = calcSurfaceArea.execute(lines.get(0));
+        double expected = 113.09D;
+        String actual = calcCapacity.execute(lines.get(0));
         Assert.assertEquals(expected, Double.parseDouble(actual), 0.1);
     }
 }

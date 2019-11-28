@@ -1,0 +1,38 @@
+2019-11-29 00:34:50 INFO  CommandProvider:33 - founded command - CALC_CAPACITY
+2019-11-29 00:34:50 INFO  Controller:41 - take data
+2019-11-29 00:34:50 INFO  GlobDaoImpl:37 - get glob list
+2019-11-29 00:34:50 INFO  Controller:32 - execute command
+2019-11-29 00:34:50 INFO  CalcServiceImpl:24 - calc capacity
+2019-11-29 00:34:50 INFO  CalcServiceImpl:33 - check is glob
+2019-11-29 00:34:50 INFO  CalcServiceImpl:24 - calc capacity
+2019-11-29 00:34:50 INFO  CalcServiceImpl:33 - check is glob
+2019-11-29 00:34:50 INFO  CommandProvider:33 - founded command - ALLOWABLE_GLOB
+2019-11-29 00:34:50 INFO  Controller:41 - take data
+2019-11-29 00:34:50 INFO  GlobDaoImpl:37 - get glob list
+2019-11-29 00:34:50 INFO  Controller:32 - execute command
+2019-11-29 00:34:50 INFO  CalcServiceImpl:33 - check is glob
+2019-11-29 00:34:50 INFO  CalcServiceImpl:33 - check is glob
+2019-11-29 00:34:50 INFO  CommandProvider:33 - founded command - IS_TOUCH_SOME_AXIS
+2019-11-29 00:34:50 INFO  Controller:41 - take data
+2019-11-29 00:34:50 INFO  GlobDaoImpl:37 - get glob list
+2019-11-29 00:34:50 INFO  Controller:32 - execute command
+2019-11-29 00:34:50 INFO  CalcServiceImpl:84 - check is glob touch some axis
+2019-11-29 00:34:50 INFO  CalcServiceImpl:33 - check is glob
+2019-11-29 00:34:50 INFO  CalcServiceImpl:84 - check is glob touch some axis
+2019-11-29 00:34:50 INFO  CalcServiceImpl:33 - check is glob
+2019-11-29 00:34:50 INFO  CommandProvider:33 - founded command - CALC_SURFACE_AREA
+2019-11-29 00:34:50 INFO  Controller:41 - take data
+2019-11-29 00:34:50 INFO  GlobDaoImpl:37 - get glob list
+2019-11-29 00:34:50 INFO  Controller:32 - execute command
+2019-11-29 00:34:50 INFO  CalcServiceImpl:16 - calc surface area
+2019-11-29 00:34:50 INFO  CalcServiceImpl:33 - check is glob
+2019-11-29 00:34:50 INFO  CalcServiceImpl:16 - calc surface area
+2019-11-29 00:34:50 INFO  CalcServiceImpl:33 - check is glob
+2019-11-29 00:34:50 INFO  CommandProvider:33 - founded command - CALC_VOLUME_RATIO
+2019-11-29 00:34:50 INFO  Controller:41 - take data
+2019-11-29 00:34:50 INFO  SectionCalcParametersDaoImpl:35 - get sectionCalcParameters list
+2019-11-29 00:34:50 INFO  Controller:32 - execute command
+2019-11-29 00:34:50 INFO  CalcServiceImpl:43 - calc volume ratio
+2019-11-29 00:34:50 INFO  CalcServiceImpl:33 - check is glob
+2019-11-29 00:34:50 INFO  CalcServiceImpl:24 - calc capacity
+2019-11-29 00:34:50 INFO  CalcServiceImpl:33 - check is glob

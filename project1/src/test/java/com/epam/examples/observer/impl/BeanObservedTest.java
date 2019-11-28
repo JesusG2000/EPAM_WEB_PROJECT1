@@ -1,6 +1,6 @@
 package com.epam.examples.observer.impl;
 
-import com.epam.examples.bean.dto.SectionCalcParameters;
+import com.epam.examples.bean.dto.impl.SectionCalcParameters;
 import com.epam.examples.service.ServiceException;
 import com.epam.examples.util.parser.DataParser;
 import com.epam.examples.util.parser.ParserException;
@@ -15,16 +15,17 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class BeanObservableTest {
+public class BeanObservedTest {
 
     private List<SectionCalcParameters> linesParams;
     private DataProvider dataProvider;
     private DataParser parser;
+
     @Before
     public void initAllowableGlob() throws ProviderException, ParserException {
 
-        dataProvider = new FileDataProvider();
-        parser = new FileDataParser("src\\test\\resources\\information", dataProvider);
+        dataProvider = new FileDataProvider("src\\test\\resources\\information");
+        parser = new FileDataParser(dataProvider);
         linesParams = parser.getSectionParams();
 
 
@@ -37,15 +38,16 @@ public class BeanObservableTest {
         dataProvider = null;
         linesParams = null;
     }
+
     @Test
     public void checkValueChanges() throws ServiceException {
-        BeanObservable beanObservable =new BeanObservable();
-        beanObservable.setSectionCalcParameters(linesParams.get(0));
+        BeanObserved beanObserved = new BeanObserved();
+        beanObserved.setSectionCalcParameters(linesParams.get(0));
 
         BeanObserver observer = new BeanObserver();
 
-        beanObservable.addObserver(observer);
-        beanObservable.setAxis("OY");
+        beanObserved.addObserver(observer);
+        beanObserved.setAxis("OY");
 
         double expectedCap = 113.09D;
         double expectedArea = 118.4;

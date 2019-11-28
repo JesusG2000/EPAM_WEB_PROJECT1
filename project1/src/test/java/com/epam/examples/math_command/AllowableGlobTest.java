@@ -1,4 +1,5 @@
-package com.epam.examples.math.command;
+package com.epam.examples.math_command;
+
 
 import com.epam.examples.bean.Glob;
 import com.epam.examples.util.parser.DataParser;
@@ -14,9 +15,9 @@ import org.junit.Test;
 
 import java.util.List;
 
+public class AllowableGlobTest {
 
-public class CalcCapacityTest {
-    private CalcCapacity calcCapacity;
+    private AllowableGlob allowableGlob;
     private List<Glob> lines;
     private DataProvider dataProvider;
     private DataParser parser;
@@ -24,32 +25,32 @@ public class CalcCapacityTest {
 
     @Before
     public void initAllowableGlob() throws ProviderException, ParserException {
-        dataProvider = new FileDataProvider();
-        parser = new FileDataParser("src\\test\\resources\\information", dataProvider);
+        allowableGlob = new AllowableGlob();
+        dataProvider = new FileDataProvider("src\\test\\resources\\information");
+        parser = new FileDataParser(dataProvider);
         lines = parser.getGlobes();
-        calcCapacity = new CalcCapacity();
+
     }
 
     @After
-    public void clearCalcCapacity() {
-        calcCapacity = null;
-        lines = null;
+    public void clearAllowableGlob() {
+        allowableGlob = null;
         parser = null;
         dataProvider = null;
+        lines = null;
     }
-
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void checkOnException() {
-        double expected = 113.09D;
-        String actual = calcCapacity.execute(lines.get(5));
-        Assert.assertEquals(expected, Double.parseDouble(actual), 0.1);
+        String expected = "true";
+        String actual = allowableGlob.execute(lines.get(3));
+        Assert.assertEquals(expected, actual);
     }
 
     @Test()
     public void checkOnResult() {
-        double expected = 113.09D;
-        String actual = calcCapacity.execute(lines.get(0));
-        Assert.assertEquals(expected, Double.parseDouble(actual), 0.1);
+        String expected = "true";
+        String actual = allowableGlob.execute(lines.get(1));
+        Assert.assertEquals(expected, actual);
     }
 }

@@ -1,20 +1,18 @@
 package com.epam.examples.controller;
 
 
-
-import com.epam.examples.math.command.*;
-import com.epam.examples.util.log.LogProvider;
+import com.epam.examples.math_command.*;
+import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
-import java.util.regex.Pattern;
+
 
 //package private
- final class CommandProvider {
+final class CommandProvider {
 
+    private static Logger log = Logger.getLogger(CommandProvider.class);
     private final Map<CommandName, Command> repositoryOperation = new HashMap<>();
-    private static Logger log = LogProvider.getLOGGER(Controller.class);
 
     CommandProvider() {
         repositoryOperation.put(CommandName.ALLOWABLE_GLOB, new AllowableGlob());
@@ -23,12 +21,7 @@ import java.util.regex.Pattern;
         repositoryOperation.put(CommandName.CALC_VOLUME_RATIO, new CalcVolumeRatio());
         repositoryOperation.put(CommandName.IS_TOUCH_SOME_AXIS, new IsTouchSomeAxis());
         repositoryOperation.put(CommandName.WRONG_REQUEST, new WrongRequest());
-//
-//        repositoryParam.put(CommandName.ALLOWABLE_GLOB, FileParser.FOUR_PARAMS);
-//        repositoryParam.put(CommandName.CALC_CAPACITY, FileParser.FOUR_PARAMS);
-//        repositoryParam.put(CommandName.CALC_SURFACE_AREA, FileParser.FOUR_PARAMS);
-//        repositoryParam.put(CommandName.CALC_VOLUME_RATIO, FileParser.EIGHT_PARAMS);
-//        repositoryParam.put(CommandName.IS_TOUCH_SOME_AXIS, FileParser.FOUR_PARAMS);
+
 
     }
 
@@ -37,7 +30,7 @@ import java.util.regex.Pattern;
         Command command;
         try {
             commandName = CommandName.valueOf(name.toUpperCase());
-            log.info("founded command - "+commandName.toString());
+            log.info("founded command - " + commandName.toString());
             command = repositoryOperation.get(commandName);
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             command = repositoryOperation.get(CommandName.WRONG_REQUEST);

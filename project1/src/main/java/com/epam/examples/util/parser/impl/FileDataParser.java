@@ -1,14 +1,13 @@
 package com.epam.examples.util.parser.impl;
 
 
-import com.epam.examples.bean.dto.SectionCalcParameters;
 import com.epam.examples.bean.Dot;
 import com.epam.examples.bean.Glob;
+import com.epam.examples.bean.dto.impl.SectionCalcParameters;
 import com.epam.examples.util.parser.DataParser;
 import com.epam.examples.util.parser.ParserException;
 import com.epam.examples.util.provider.DataProvider;
 import com.epam.examples.util.provider.ProviderException;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +17,15 @@ import java.util.regex.Pattern;
 public class FileDataParser implements DataParser {
     private static final Pattern GLOB_PARAMS = Pattern.compile("((-|)[0-9]+\\.[0-9]+\\s){3}[0-9]+\\.[0-9]+$");
     private static final Pattern SECTION_PARAMS = Pattern.compile("((-|)[0-9]+\\.[0-9]+\\s){3}[0-9]+\\.[0-9]+\\sO([XYZ])\\s((-|)[0-9]+\\.[0-9]+\\s){2}[0-9]+\\.[0-9]+$");
-    private String wayToFile;
-    private DataProvider provider;
+    private DataProvider<List<String>> provider;
 
-    public FileDataParser(String wayToFile,DataProvider provider) {
-        this.wayToFile=wayToFile;
-        this.provider=provider;
+    public FileDataParser(DataProvider<List<String>> provider) {
+        this.provider = provider;
     }
 
     @Override
     public List<SectionCalcParameters> getSectionParams() throws ParserException, ProviderException {
-        List<String> lines = getLines(provider.getData(wayToFile), SECTION_PARAMS);
+        List<String> lines = getLines(provider.getData(), SECTION_PARAMS);
         List<SectionCalcParameters> parameters = new ArrayList<>();
         try {
             for (String line : lines) {
@@ -55,7 +52,7 @@ public class FileDataParser implements DataParser {
     public List<Glob> getGlobes() throws ParserException, ProviderException {
 
 
-        List<String> lines = getLines(provider.getData(wayToFile), GLOB_PARAMS);
+        List<String> lines = getLines(provider.getData(), GLOB_PARAMS);
         List<Glob> globs = new ArrayList<>();
         try {
             for (String line : lines) {
@@ -72,8 +69,8 @@ public class FileDataParser implements DataParser {
         return globs;
     }
 
-    private List<String> getLines(List<String> lines , Pattern pattern) throws ProviderException {
-        List<String> formatList =new ArrayList<>();
+    private List<String> getLines(List<String> lines, Pattern pattern) throws ProviderException {
+        List<String> formatList = new ArrayList<>();
         for (String l : lines) {
             Matcher matcher = pattern.matcher(l);
             while (matcher.find()) {

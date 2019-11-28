@@ -5,7 +5,8 @@ import com.epam.examples.service.impl.CalcServiceImpl;
 public final class ServiceFactory {
     private static final CalcService calcService = new CalcServiceImpl();
 
-    private ServiceFactory(){}
+    private ServiceFactory() {
+    }
 
     public static CalcService getCalcService() {
         return calcService;

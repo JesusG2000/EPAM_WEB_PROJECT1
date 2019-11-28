@@ -1,6 +1,6 @@
-package com.epam.examples.math.command;
+package com.epam.examples.math_command;
 
-import com.epam.examples.bean.dto.SectionCalcParameters;
+import com.epam.examples.bean.dto.impl.SectionCalcParameters;
 import com.epam.examples.util.parser.DataParser;
 import com.epam.examples.util.parser.ParserException;
 import com.epam.examples.util.parser.impl.FileDataParser;
@@ -25,8 +25,8 @@ public class CalcVolumeRatioTest {
 
     @Before
     public void initAllowableGlob() throws ProviderException, ParserException {
-        dataProvider = new FileDataProvider();
-        parser = new FileDataParser("src\\test\\resources\\information", dataProvider);
+        dataProvider = new FileDataProvider("src\\test\\resources\\information");
+        parser = new FileDataParser(dataProvider);
         lines = parser.getSectionParams();
         calcVolumeRatio = new CalcVolumeRatio();
     }

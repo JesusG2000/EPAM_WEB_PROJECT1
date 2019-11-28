@@ -1,24 +1,20 @@
 package com.epam.examples.dao;
 
-import com.epam.examples.dao.impl.Action;
+import com.epam.examples.dao.impl.GlobDaoImpl;
+import com.epam.examples.dao.impl.SectionCalcParametersDaoImpl;
 
 public final class DaoFactory {
-    private static final ChangeData changeData = new Action();
-    private static final FindData findData = new Action();
-    private static final SortData sortData = new Action();
+    private static final GlobDao globDao = new GlobDaoImpl();
+    private static final SectionCalcParametersDao sectionCalcParametersDao = new SectionCalcParametersDaoImpl();
 
     private DaoFactory() {
     }
 
-    public static ChangeData getChangeData() {
-        return changeData;
+    public static GlobDao getGlobDao() {
+        return globDao;
     }
 
-    public static FindData getFindData() {
-        return findData;
-    }
-
-    public static SortData getSortData() {
-        return sortData;
+    public static SectionCalcParametersDao getSectionCalcParametersDao() {
+        return sectionCalcParametersDao;
     }
 }

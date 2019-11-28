@@ -3,39 +3,31 @@ package com.epam.examples.dao.impl;
 import com.epam.examples.bean.Dot;
 import com.epam.examples.bean.Glob;
 import com.epam.examples.controller.Command;
-import com.epam.examples.controller.Controller;
 import com.epam.examples.dao.DaoException;
-import com.epam.examples.dao.ChangeData;
-import com.epam.examples.dao.FindData;
-import com.epam.examples.dao.SortData;
-import com.epam.examples.bean.dto.SectionCalcParameters;
-import com.epam.examples.math.command.CalcCapacity;
-import com.epam.examples.math.command.CalcSurfaceArea;
-import com.epam.examples.math.command.CalcVolumeRatio;
-import com.epam.examples.math.command.IsTouchSomeAxis;
-import com.epam.examples.util.log.LogProvider;
+import com.epam.examples.dao.GlobDao;
+import com.epam.examples.math_command.CalcCapacity;
+import com.epam.examples.math_command.CalcSurfaceArea;
+import com.epam.examples.math_command.IsTouchSomeAxis;
 import com.epam.examples.util.provider.DataProvider;
 import com.epam.examples.util.provider.impl.FileDataProvider;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class Action implements ChangeData, FindData , SortData {
+
+public class GlobDaoImpl implements GlobDao {
+    private static Logger log = Logger.getLogger(GlobDaoImpl.class);
     private List<Glob> globs;
-    private List<SectionCalcParameters> sectionCalcParameters;
-    private static Logger log = LogProvider.getLOGGER(Action.class);
 
-    public Action() {
+    public GlobDaoImpl() {
         try {
             FileData fileData = new FileData();
-            DataProvider provider = new FileDataProvider();
-            globs = fileData.getGlobData("data\\information", provider);
-            sectionCalcParameters = fileData.getSectionCalcParametersData("data\\information", provider);
+            DataProvider provider = new FileDataProvider("data\\information");
+            globs = fileData.getGlobData(provider);
         } catch (DaoException e) {
-            log.log(Level.WARNING,"Exception ",e);
+            log.error("Exception ", e);
             e.printStackTrace();
         }
     }
@@ -47,21 +39,9 @@ public class Action implements ChangeData, FindData , SortData {
     }
 
     @Override
-    public List<SectionCalcParameters> getSectionCalcParameters() {
-        log.info("get sectionCalcParameters list");
-        return sectionCalcParameters;
-    }
-
-    @Override
     public void addGlob(Glob glob) {
         log.info("add in glob list");
         globs.add(glob);
-    }
-
-    @Override
-    public void addSectionCalcParameters(SectionCalcParameters parameters) {
-        log.info("add in sectionCalcParameters list");
-        sectionCalcParameters.add(parameters);
     }
 
     @Override
@@ -71,21 +51,9 @@ public class Action implements ChangeData, FindData , SortData {
     }
 
     @Override
-    public void removeSectionCalcParameters(int index) {
-        log.info("remove sectionCalcParameters");
-        sectionCalcParameters.remove(index);
-    }
-
-    @Override
     public void changeGlob(int index, Glob glob) {
         log.info("change glob");
         globs.set(index, glob);
-    }
-
-    @Override
-    public void changeSectionCalcParameters(int index, SectionCalcParameters parameters) {
-        log.info("change sectionCalcParameters");
-        sectionCalcParameters.set(index, parameters);
     }
 
     @Override
@@ -170,32 +138,6 @@ public class Action implements ChangeData, FindData , SortData {
     }
 
     @Override
-    public List<SectionCalcParameters> findSectionCalcParametersWithAxis(String axis) {
-        log.info("try to find SectionCalcParameters by axis");
-        List<SectionCalcParameters> list = new ArrayList<>();
-        for (SectionCalcParameters s : sectionCalcParameters) {
-            if (s.getAxis().equals(axis)) {
-                list.add(s);
-            }
-        }
-        return list;
-    }
-
-    @Override
-    public List<SectionCalcParameters> findSectionCalcParametersWithVolumeRatio(double begin, double end) {
-        log.info("try to find SectionCalcParametersW by volume ratio in range");
-        List<SectionCalcParameters> list = new ArrayList<>();
-        Command<SectionCalcParameters> command = new CalcVolumeRatio();
-        for (SectionCalcParameters s : sectionCalcParameters) {
-            double result = Double.parseDouble(command.execute(s));
-            if (result >= begin && result <= end) {
-                list.add(s);
-            }
-        }
-        return list;
-    }
-
-    @Override
     public void sortGlobByX() {
         log.info("glob sort by X");
         globs.sort(new XSort());
@@ -219,12 +161,6 @@ public class Action implements ChangeData, FindData , SortData {
         globs.sort(new RadiusSort());
     }
 
-    @Override
-    public void sortSectionCalcParametersByAxis() {
-        log.info("SectionCalcParameters sort by axis");
-        sectionCalcParameters.sort(new AxisSort());
-    }
-
     class XSort implements Comparator<Glob> {
 
         @Override
@@ -232,9 +168,10 @@ public class Action implements ChangeData, FindData , SortData {
             Dot dot1 = o1.getDot();
             Dot dot2 = o2.getDot();
 
-            return (int)(dot1.getX()-dot2.getX());
+            return (int) (dot1.getX() - dot2.getX());
         }
     }
+
     class YSort implements Comparator<Glob> {
 
         @Override
@@ -242,9 +179,10 @@ public class Action implements ChangeData, FindData , SortData {
             Dot dot1 = o1.getDot();
             Dot dot2 = o2.getDot();
 
-            return (int)(dot1.getY()-dot2.getY());
+            return (int) (dot1.getY() - dot2.getY());
         }
     }
+
     class ZSort implements Comparator<Glob> {
 
         @Override
@@ -255,22 +193,14 @@ public class Action implements ChangeData, FindData , SortData {
             return (int) (dot1.getZ() - dot2.getZ());
         }
     }
-        class RadiusSort implements Comparator<Glob> {
 
-            @Override
-            public int compare(Glob o1, Glob o2) {
+    class RadiusSort implements Comparator<Glob> {
+
+        @Override
+        public int compare(Glob o1, Glob o2) {
 
 
-                return (int) (o1.getRadius() - o2.getRadius());
-            }
-        }
-        class AxisSort implements Comparator<SectionCalcParameters>{
-
-            @Override
-            public int compare(SectionCalcParameters o1, SectionCalcParameters o2) {
-                return o1.getAxis().compareTo(o2.getAxis());
-            }
+            return (int) (o1.getRadius() - o2.getRadius());
         }
     }
-
-
+}

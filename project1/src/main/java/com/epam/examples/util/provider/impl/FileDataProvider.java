@@ -1,7 +1,6 @@
 package com.epam.examples.util.provider.impl;
 
 
-
 import com.epam.examples.util.provider.DataProvider;
 import com.epam.examples.util.provider.ProviderException;
 
@@ -11,13 +10,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class FileDataProvider implements DataProvider {
+public class FileDataProvider implements DataProvider<List<String>> {
+    private String dataHolder;
+
+    public FileDataProvider(String dataHolder) {
+        this.dataHolder = dataHolder;
+    }
 
     @Override
-    public List<String> getData(String dataHolder) throws ProviderException {
+    public List<String> getData() throws ProviderException {
         List<String> lines = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(dataHolder)))) {
             String line = reader.readLine();

@@ -2,7 +2,7 @@ package com.epam.examples.bean;
 
 import java.util.Objects;
 
-public class Dot  {
+public class Dot {
     private double x;
     private double y;
     private double z;
